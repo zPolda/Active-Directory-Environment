@@ -51,3 +51,18 @@ Instalar o Splunk em um servidor dedicado e deployar o Splunk Universal Forwarde
 
 Texto explicativo:
 O Splunk foi instalado em um servidor Ubuntu 20.04 LTS separado da rede de produção, configurado como instância única para receber e indexar logs. Na máquina target (Windows 10), o Splunk Universal Forwarder foi instalado e configurado para enviar logs locais (Windows Event Log, Sysmon) para o Splunk central via porta 9997.
+
+
+## Step 3: Configuração do Active Directory e Implementação do Domínio
+
+Objetivo:
+Configurar um controlador de domínio (Active Directory) em uma máquina Windows Server e integrar a máquina target ao domínio para simular um ambiente corporativo real.
+
+<img width="1026" height="775" alt="26LUjK0" src="https://github.com/user-attachments/assets/b5923fd6-f543-4108-b90a-0548209c5579" />
+
+<img width="1021" height="770" alt="4d3ac4ab-39a0-45b6-82d2-691939177f02" src="https://github.com/user-attachments/assets/10561b94-fc67-454a-a7b5-39532170c82a" />
+
+<img width="988" height="697" alt="f4f2af8c-8232-48cd-8099-4a6ebf608182" src="https://github.com/user-attachments/assets/135cd824-68a9-4f5c-b613-a9af04c04e25" />
+
+Texto explicativo:
+"Um servidor Windows Server 2022 foi configurado como controlador de domínio (DC) para o domínio SEC.LOCAL, com serviços de AD DS, DNS e DHCP ativos. A máquina target (Windows 10) foi então ingressada no domínio, permitindo a autenticação centralizada de usuários e a aplicação de políticas de grupo (GPOs). Essa estrutura é fundamental para gerar telemetria realista de ambientes corporativos e testar ataques direcionados ao Active Directory."
