@@ -66,3 +66,43 @@ Configurar um controlador de domínio (Active Directory) em uma máquina Windows
 
 Texto explicativo:
 "Um servidor Windows Server 2022 foi configurado como controlador de domínio (DC) para o domínio SEC.LOCAL, com serviços de AD DS, DNS e DHCP ativos. A máquina target (Windows 10) foi então ingressada no domínio, permitindo a autenticação centralizada de usuários e a aplicação de políticas de grupo (GPOs). Essa estrutura é fundamental para gerar telemetria realista de ambientes corporativos e testar ataques direcionados ao Active Directory."
+
+## Step 5: Simulação de Brute Force Attack e Detecção no Splunk
+
+Objetivo:
+Simular um ataque de força bruta (brute force) a partir do Kali Linux contra o Active Directory e detectar as tentativas de login maliciosas no Splunk em tempo real.
+
+<img width="646" height="744" alt="38bd1dc0-31d6-4bf9-b2a2-11bde308927c" src="https://github.com/user-attachments/assets/3b0c4860-1058-40c8-b67b-0a5cc72b338e" />
+
+<img width="1034" height="777" alt="e95c404d-b626-4d7d-bc01-d20fc9955729" src="https://github.com/user-attachments/assets/a0179cae-6342-46ab-a5be-541ad8747aee" />
+
+<img width="1023" height="771" alt="b1375515-5021-42b5-94e3-a8111c1db10c" src="https://github.com/user-attachments/assets/ac2eb3a9-cff5-490e-8e87-9d582b56cea4" />
+
+Texto explicativo:
+"Um ataque de força bruta foi simulado a partir do Kali Linux (IP: 192.168.10.250) contra o controlador de domínio (SEC.LOCAL), utilizando a ferramenta Hydra para tentativas de login via SMB. O Splunk capturou os eventos de falha de autenticação (Windows Event ID 4625) gerados pelo Active Directory, destacando o IP originário do ataque, usuários alvejados e horários das tentativas. 
+
+## Step 6: Simulação de Execução de Comando com Atomic Red Team (T1059.001) e Detecção no Splunk
+
+Objetivo:
+Utilizar o Atomic Red Team para simular a execução de comandos maliciosos via PowerShell (T1059.001) e detectar a atividade em tempo real no Splunk, validando a telemetria do ambiente.
+
+<img width="785" height="591" alt="6690ab60-92cd-480a-87a8-f527d000eb43" src="https://github.com/user-attachments/assets/4b4a3ffd-5bb6-4a05-bd4d-7be4a0bca45c" />
+
+<img width="860" height="719" alt="d87ed2bd-6c8f-4cfd-ac5a-3e7d2dc36aee" src="https://github.com/user-attachments/assets/01a160b6-4d2c-4406-84e2-1fbc2d16d373" />
+
+<img width="1021" height="770" alt="ac10d0b2-6056-4a2d-b352-2dbfded3eea1" src="https://github.com/user-attachments/assets/83d61d43-9bff-47ca-98a6-6ded3cc9e283" />
+
+
+Texto explicativo:
+*"O Atomic Red Team foi acionado para simular a técnica T1059.001 (PowerShell) do MITRE ATT&CK. O comando executado via cmd.exe iniciou um script PowerShell malicioso que carregou um XML remoto (hostado no GitHub) para execução de código arbitrário (IEX). O Splunk capturou o evento do Sysmon (EventID 1) com detalhes completos, incluindo a linha de comando, hashes do processo, usuário (SEC\Administrator) e contexto de integridade (High). A detecção destaca o uso de flags de bypass (-exec bypass) e o carregamento de conteúdo externo, típico de ataques de staging ou command-and-control."*
+
+## Conclusão
+Este projeto implementou um ambiente de Active Directory com Splunk para geração e análise de telemetria, simulando ataques reais como brute force RDP e execução de comandos maliciosos via Atomic Red Team. Os logs foram correlacionados com técnicas MITRE ATT&CK (ex: T1059.001, T1110), validando a detecção proativa de ameaças.
+
+Próximas atualizações podem incluir:
+
+Integração com EDR (Windows Defender for Endpoint).
+
+Automação de respostas via Splunk SOAR.
+
+Expansão para técnicas avançadas (lateral movement, exfiltração).
